@@ -1,4 +1,4 @@
-package StepDefinitions;
+package LoginStepDefinitions;
 
 import PageObjects.LoginPage;
 import io.cucumber.java.en.And;

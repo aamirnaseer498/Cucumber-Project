@@ -1,5 +1,6 @@
 package PageObjects;
 
+import Utilities.WaitHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,12 +15,12 @@ import java.time.Duration;
 public class LoginPage {
 
     WebDriver webDriver;
-    WebDriverWait driverWait;
+    WaitHelper waitHelper;
 
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
-        driverWait= new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        waitHelper= new WaitHelper(webDriver);
     }
 
     @FindBy (id = "Email")
@@ -39,24 +40,24 @@ public class LoginPage {
     WebElement logoutLink;
 
     public void enterEmail(String email) {
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Email")));
+        waitHelper.waitForElement(emailField,60);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Password")));
+        waitHelper.waitForElement(passwordField,60);
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
     public void clickLogin(){
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        waitHelper.waitForElement(loginButton,60);
         loginButton.click();
     }
 
     public void clickLogout(){
-        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Logout")));
+        waitHelper.waitForElement(logoutLink,60);
         logoutLink.click();
     }
 
