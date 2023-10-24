@@ -163,7 +163,6 @@ public class AddCustomerPage {
     public void selectNewsLetter(String newsLetter){
         waitHelper.waitForElement(newsLetterField,60);
         newsLetterField.click();
-        //newsLetterField.clear();
         if (newsLetter.equals("Your store name")){
             waitHelper.waitForElement(newsLetterListItemYourStoreName,60);
             newsLetterListItemYourStoreName.click();
@@ -176,7 +175,6 @@ public class AddCustomerPage {
     public void selectCustomerRoles(String role){
         waitHelper.waitForElement(customerRolesField,60);
         customerRolesField.click();
-        //customerRolesField.clear();
         if (role.equals("Administrators")){
             waitHelper.waitForElement(customerRolesListItemAdministrators,60);
             customerRolesListItemAdministrators.click();

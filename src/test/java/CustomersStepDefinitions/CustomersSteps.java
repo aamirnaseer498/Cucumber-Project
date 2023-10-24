@@ -2,6 +2,7 @@ package CustomersStepDefinitions;
 
 import PageObjects.AddCustomerPage;
 import PageObjects.LoginPage;
+import PageObjects.SearchCustomerPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,6 +19,7 @@ public class CustomersSteps {
 
     LoginPage loginPage;
     AddCustomerPage addCustomerPage;
+    SearchCustomerPage searchCustomerPage;
 
     @Given("Launch chrome browser")
     public void launchChromeBrowser() {
@@ -25,6 +27,7 @@ public class CustomersSteps {
         webDriver.manage().window().maximize();
         loginPage= new LoginPage(webDriver);
         addCustomerPage= new AddCustomerPage(webDriver);
+        searchCustomerPage= new SearchCustomerPage(webDriver);
         System.out.println("Browser opened");
     }
 
@@ -68,6 +71,30 @@ public class CustomersSteps {
         addCustomerPage.clickOnCustomersMenuItemLink();
         System.out.println("Clicked on Customers Menu Item Link");
     }
+
+    @When("Click on Logout link")
+    public void clickOnLogoutLink() {
+        loginPage.clickLogout();
+        System.out.println("Clicked on logout");
+    }
+
+    @And("Close browser")
+    public void closeBrowser() {
+        webDriver.close();
+        System.out.println("Browser closed");
+    }
+
+    public String generateString(){
+        return RandomStringUtils.randomAlphabetic(5);
+    }
+
+    public String generatePassword(){
+        return RandomStringUtils.randomNumeric(8);
+    }
+
+    //Add new customer
+//    ..................
+//    ..................
 
     @Then("Click on Add new button")
     public void clickOnAddNewButton() {
@@ -120,24 +147,59 @@ public class CustomersSteps {
         }
     }
 
-    @When("Click on Logout link")
-    public void clickOnLogoutLink() {
-        loginPage.clickLogout();
-        System.out.println("Clicked on logout");
+    //Search customer
+//    ..................
+//    ..................
+
+    @Then("Enter Customer email ID")
+    public void enterCustomerEmailID() {
+        searchCustomerPage.enterEmail("victoria_victoria@nopCommerce.com");
+        System.out.println("Email is entered");
     }
 
-    @And("Close browser")
-    public void closeBrowser() {
-        webDriver.close();
-        System.out.println("Browser closed");
+    @And("Click on Search button")
+    public void clickOnSearchButton() {
+        searchCustomerPage.clickSearchButton();
+        System.out.println("Search button is clicked");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String generateString(){
-        return RandomStringUtils.randomAlphabetic(5);
+    @Then("User email should appear in search result")
+    public void userEmailShouldAppearInSearchResult() {
+        boolean result= searchCustomerPage.searchCustomerByEmail("victoria_victoria@nopCommerce.com");
+        if (result){
+            System.out.println("Searched user found successfully");
+            Assert.assertTrue(true);
+        }else{
+            Assert.fail("Customer not found");
+        }
     }
 
-    public String generatePassword(){
-        return RandomStringUtils.randomNumeric(8);
+    @Then("Enter Customer FirstName")
+    public void enterCustomerFirstName() {
+        searchCustomerPage.enterFirstName("Victoria");
+        System.out.println("First name is entered");
+    }
+
+    @Then("Enter Customer LastName")
+    public void enterCustomerLastName() {
+        searchCustomerPage.enterLastName("Terces");
+        System.out.println("Last name is entered");
+    }
+
+    @Then("User name should appear in search result")
+    public void userNameShouldAppearInSearchResult() {
+        boolean result= searchCustomerPage.searchCustomerByName("Victoria Terces");
+        if (result){
+            System.out.println("Searched user found successfully");
+            Assert.assertTrue(true);
+        }else{
+            Assert.fail("Customer not found");
+        }
     }
 
 }
