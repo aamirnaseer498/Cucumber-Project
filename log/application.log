@@ -1,0 +1,6 @@
+2023-10-26 10:32:29,642 [main] INFO nopCommerce - Browser opened
+2023-10-26 10:32:32,109 [main] INFO nopCommerce - Application launched
+2023-10-26 10:32:33,029 [main] INFO nopCommerce - Email and password is entered
+2023-10-26 10:32:39,236 [main] INFO nopCommerce - Clicked on login
+2023-10-26 10:32:41,218 [main] INFO nopCommerce - Clicked on logout
+2023-10-26 10:32:41,594 [main] INFO nopCommerce - Browser closed
