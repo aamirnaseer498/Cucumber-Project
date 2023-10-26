@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = ".//Features/Customers.feature",
         glue = "CustomersStepDefinitions",
-        plugin = {"pretty","html:test-report/index.html"})
+        plugin = {"pretty","html:test-report/index.html"},
+        tags = "@sanity or @regression")
 public class CustomersTestRunner {
 
 }
