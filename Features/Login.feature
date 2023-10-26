@@ -1,7 +1,7 @@
 Feature: Login
 
   Scenario: Login with valid credentials
-    Given Launch chrome browser
+    Given Launch browser
     When Open URL "https://admin-demo.nopcommerce.com/login"
     Then Enter email as "admin@yourstore.com" and password as "admin"
     Then Click on login button
@@ -11,7 +11,7 @@ Feature: Login
     And Close browser
 
   Scenario Outline: Login with invalid credentials
-    Given Launch chrome browser
+    Given Launch browser
     When Open URL "https://admin-demo.nopcommerce.com/login"
     Then Enter email as "<email>" and password as "<password>"
     Then Click on login button

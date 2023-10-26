@@ -1,6 +1,7 @@
 package LoginStepDefinitions;
 
 import PageObjects.LoginPage;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,18 +11,45 @@ import org.apache.log4j.PropertyConfigurator;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 public class LoginSteps {
 
     WebDriver webDriver;
     LoginPage loginPage;
     Logger logger;
+    Properties configProperties;
+    String browser;
 
-    @Given("Launch chrome browser")
-    public void launchChromeBrowser() {
+    @Before
+    public void setup(){
+        configProperties= new Properties();
+        try {
+            FileInputStream configFile= new FileInputStream("config.properties");
+            configProperties.load(configFile);
+            browser= configProperties.getProperty("browser");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         logger=Logger.getLogger("nopCommerce");
         PropertyConfigurator.configure("log4j.properties");
-        webDriver= new ChromeDriver();
+    }
+
+    @Given("Launch browser")
+    public void launchChromeBrowser() {
+        if (browser.equalsIgnoreCase("chrome")){
+            webDriver= new ChromeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            webDriver= new FirefoxDriver();
+        } else if (browser.equalsIgnoreCase("edge")) {
+            webDriver= new EdgeDriver();
+        }
         webDriver.manage().window().maximize();
         loginPage= new LoginPage(webDriver);
         System.out.println("Browser opened");
